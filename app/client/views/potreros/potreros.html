@@ -1,0 +1,190 @@
+<template name="potreros">
+  
+   <div style="float:right;">
+     <button  data-toggle="tooltip" data-placement="bottom" data-html="true" title="Agrega una nueva liquidacion para luego cargar la facturacion " id="btnAgregar" class="btn btn-success btn"><i class="fas fa-plus"></i> <b>NUEVO</b> Potrero </button>
+   
+
+  </div>
+    <h1><i class="fas fa-tractor"></i> POTREROS<small> </small></h1>
+<div class="form-inline">
+
+</div>
+
+{{> reactiveTable id="tabla" class="table table-condensed table-striped" settings=settings}}
+
+</template>
+
+<template name='potrerosAnimales'>
+
+    <div class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                   <h1> <i class="fas fa-dog"></i>  <b>{{nombrePotrero}}</b> animales</h1>
+                 
+                </div>
+              <div class="modal-body">
+                <div class="form-inline">
+ {{#autoForm  collection="Potreros" id="nuevoAnimalPotrero_" doc=this scope="animales" type="update-pushArray"}}
+{{> afQuickField  name='idAnimal'}}
+  {{> afQuickField name='fecha'}}
+  <button type="submit" id="btnAceptar"  class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <b>AGREGAR</b> ANIMAL </button>
+  {{/autoForm}}
+</div>
+<input type="checkbox" id="activaGrupo"><label for='activaGrupo'>Agregar Grupo</label>
+ <div style="display:none" id="agregaEspecie" class="form-inline">
+ {{#autoForm  collection="Potreros" id="nuevoRodeoPotrero_" doc=this scope="rodeos" type="update-pushArray"}}
+{{> afQuickField  name='idEspecie'}}
+  {{> afQuickField name='fecha'}}
+ <button type="submit" id="btnAceptarEspecie"  class="btn btn-warning"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <b>AGREGAR</b> GRUPO </button>
+  {{/autoForm}}
+</div>
+
+
+<div class="row">
+ <div class="col-md-4">{{> reactiveTable id="tablaRodeosAnimal" class="table table-condensed table-striped" settings=settingsRodeos}}
+</div>
+    <div class="col-md-8">           
+{{> reactiveTable id="tablaAnimales" class="table table-condensed table-striped" settings=settings}}
+</div>
+</div>
+      
+              </div>
+
+          </div>
+      </div>
+  </div>
+</template>
+<template name="grupos_">
+{{#each grupos}}
+{{> grupo}}
+{{/each}}
+</template>
+<template name="grupo">
+{{nombreGrupo}}
+</template>
+<template name='rodeosAnimalesPotrero'>
+
+    <div class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                   <h1> <i class="fas fa-layer-group"></i>  <b>ESPECIES</b> {{nombrePotrero}}</h1>
+                 
+                </div>
+              <div class="modal-body">
+                <div class="form-inline">
+ {{#autoForm  collection="Potreros" id="nuevoRodeoPotrero_" doc=this scope="rodeos" type="update-pushArray"}}
+{{> afQuickField  name='idEspecie'}}
+  {{> afQuickField name='fecha'}}
+  <button type="submit" id="btnAceptar"  class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </button>
+  {{/autoForm}}
+</div>
+
+
+<div class="row">
+ <div class="col-md-2">{{> reactiveTable id="tabla" class="table table-condensed table-striped" settings=settingsRodeos}}
+</div>
+  <div class="col-md-6">{{> reactiveTable id="tabla" class="table table-condensed table-striped" settings=settings}}
+</div>
+</div>
+ 
+
+              
+
+      
+              </div>
+
+          </div>
+      </div>
+  </div>
+</template>
+<template name="accionesGruposAnimales">
+ <div class="acciones" style="display:none"> 
+    
+    <button title="Quitar" type="button" id="delete" class="delete btn  btn-xs btn-danger" aria-label="Left Align">  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>
+ 
+  </div>
+</template>
+<template name="accionesPotrerosAnimales">
+
+  <div class="acciones" style="display:none"> 
+    
+    <button title="Quitar" type="button" id="delete" class="delete btn  btn-xs btn-danger" aria-label="Left Align">  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>
+ 
+  </div>
+</template>
+<template name="accionesPotreros">
+
+  <div class="acciones" style="display:none"> 
+     
+    <button title="Animales" type="button" id="animales" class="animales btn  btn-xs btn-success" aria-label="Left Align">  <span class="fas fa-dog" aria-hidden="true"></span> <span class="label label-danger">{{cantidadAnimales}}</span> </button>
+    <button title="Modificar" type="button" id="modificar" class="update btn  btn-xs btn-primary" aria-label="Left Align">  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
+    <button title="Quitar" type="button" id="delete" class="delete btn  btn-xs btn-danger" aria-label="Left Align">  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button>
+ 
+  </div>
+</template>
+
+
+<template name='nuevoPotrero'>
+
+    <div class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                   <h1> <i class="fas fa-plus"></i>  <b>AGREGAR</b> Potrero</h1>
+                 
+                </div>
+              <div class="modal-body">
+                
+{{#autoForm collection="Potreros" id="nuevoPotrero_" type="insert"}}
+<div class="row">
+ <div class="col-md-3">{{> afQuickField  name='nombrePotrero'}}</div>
+  <div class="col-md-6">{{> afQuickField name='superficie'}}</div>
+</div>
+<div class="row">
+  <div class="col-md-8">{{> afQuickField name='detalle'}}</div>
+</div>
+
+ <button type="submit" disabled="{{disableButtons}}" id="btnAceptar" style="width:100%" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ACEPTAR</button>
+{{/autoForm}}
+      
+              </div>
+
+          </div>
+      </div>
+  </div>
+</template>
+<template name='modificarPotrero'>
+
+    <div class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                   <h1> <i class="fas fa-pencil"></i>  <b>MODIFICAR</b> Potrero</h1>
+                 
+                </div>
+              <div class="modal-body">
+                
+{{#autoForm collection="Potreros" id="modificarPotrero_" type="update" doc=this}}
+<div class="row">
+ <div class="col-md-3">{{> afQuickField  name='nombrePotrero'}}</div>
+  <div class="col-md-6">{{> afQuickField name='superficie'}}</div>
+</div>
+<div class="row">
+  <div class="col-md-8">{{> afQuickField name='detalle'}}</div>
+</div>
+
+ <button type="submit" disabled="{{disableButtons}}" id="btnAceptar" style="width:100%" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> ACEPTAR</button>
+{{/autoForm}}
+      
+              </div>
+
+          </div>
+      </div>
+  </div>
+</template>

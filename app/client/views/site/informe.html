@@ -1,0 +1,21 @@
+<template name="informe">
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<h1><i class="fas fa-chart-area"></i> INFORME<small> </small></h1>
+    <p><i>Desde aca podras cargar ver un resumen de toda la actividad sobre los animales.</i></p>
+<br>
+  <div class="col-md-7">
+ 	<h4> GRAFICA <b>ANIMALES</b><small> </small></h4>
+{{> chartAnimales}}
+ </div>
+ <div class="col-md-4">
+ 	<h4> CANTIDAD <b>TOTAL</b><small> </small></h4>
+{{> reactiveTable id="tablaAnimales" class="table table-condensed table-striped" settings=consultarTotales}}
+ </div>
+
+
+
+</template>
+<template name="chartAnimales">
+	
+<div id="chart_div" style="width: 100%; height: 500px"></div>
+</template>

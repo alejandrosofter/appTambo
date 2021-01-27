@@ -1,0 +1,153 @@
+<template name="buscadorSocios">
+  <span ><span style="width:200px;text-transform: uppercase">{{apellido}}</span> <small>{{nombre}}</small> <small style="color:green">({{dni}})</small><small style="color:blue">-{{nroSocio}}</small> </span>
+</template>
+<template name="layoutVacio">
+
+  <div class="container-fluid">
+    {{> yield}}
+  </div>
+
+</template>
+
+<template name='facturarMasivoOs'>
+<div class="modal fade bs-example-modal-lg" tabindex="" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+                  <h2><b>LIQUIDAR MASIVO</b> para Obras Sociales</h2>
+                </div>
+
+              <div class="modal-body">
+                <div class="form-inline">
+                  <input class="form-control" style="width: 80px" id="mes" placeholder="MES">
+                  <input class="form-control" style="width: 120px" id="ano" placeholder="ANO">
+                  <select class="js-example-basic-single" style="width: 350px" id="idObraSocial">
+                  </select>
+                  <a class="btn btn-success btn-sm" id="btnBuscar"><b>BUSCAR</b> Facturacion</a>
+                </div>
+                <table class="table table-condensed">
+               <thead> <tr><th>PROFESIONAL</th><th>CANTIDAD</th><th>IMPORTE</th><th>ESTADO LIQUIDACION</th></tr></thead>
+               <tbody>
+               {{#each os}}
+                <tr><td>{{profesional}}</td><td>{{cantidad}}</td><td>{{importe}}</td><td>{{estado}}</td><td><button title="Inyectar en SISTEMA ASOCIACION" type="button" id="syncServidor" class="activar btn  btn-xs btn-info" aria-label="Left Align">  <i class="fas fa-file-import"></i></button></td></tr>
+               {{/each}}
+             </tbody>
+           </table>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</template>
+<template name="usuarioChat">
+<li class="dropdown">
+          <a class="dropdown-toggle" id="abrirChat" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="usuariosChat" id="usuario_{{id}}">
+	           
+	            {{nombreUsuario}}
+	<span id="cantidadMensajes_{{id}}" style="display:none" class="label label-danger"></span> 
+			</span>      
+            </a>
+        </li>
+
+</template>
+<template name="layoutApp">
+
+{{#if estaLogueado}}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" style="color:#00e000" href="/"> 
+       <i class="iconoMenu fab fa-connectdevelop  "></i> PASTO</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+         <li class="dropdown">
+          <a href="/animales" class="dropdown-toggle"  role="button" aria-haspopup="true" aria-expanded="false">
+           <i class="iconoMenu fas fa-dog"></i>
+            Animales
+            </a>
+        </li>
+   
+        <li class="dropdown">
+          <a href="/especies" class="dropdown-toggle"  role="button" aria-haspopup="true" aria-expanded="false">
+           <i  class="iconoMenu fas fa-object-group"></i> 
+            Grupos
+            </a>
+        </li>
+        <li class="dropdown">
+          <a href="/eventosMasivos" class="dropdown-toggle"  role="button" aria-haspopup="true" aria-expanded="false">
+           <i  class="iconoMenu fas fa-calendar-check"></i> 
+            Eventos Masivos
+            </a>
+        </li>
+        <li class="dropdown">
+          <a href="/potreros" class="dropdown-toggle"  role="button" aria-haspopup="true" aria-expanded="false">
+           <i class="iconoMenu fas fa-tractor"></i> 
+            Potreros
+            </a>
+        </li>
+         <li class="dropdown">
+          <a href="/informe" class="dropdown-toggle"  role="button" aria-haspopup="true" aria-expanded="false">
+           <i class="iconoMenu fas fa-chart-area"></i> 
+            Informe
+            </a>
+        </li>
+       <!--  <li class="dropdown">
+          <a href="/genetica" class="dropdown-toggle"  role="button" aria-haspopup="true" aria-expanded="false">
+           <i  class="iconoMenu fas fa-venus-mars"></i> 
+            Genetica
+            </a>
+        </li> -->
+       
+         
+       
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <div style="float:right;color:red;display:none" id='offline'><small style="padding:5px">offline</small> </div>
+         <div style="float:right;color:green;display:none" id='online'><small style="padding:5px">online</small> </div>
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{nombreUsuario}} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+ <li><a href="/usuarios">Usuarios</a></li>
+  <li><a href="/settings">Configuraciones</a></li>
+            <li><a href="#" class="salirSistema">Salir</a></li>
+
+          </ul>
+
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+ {{/if}}
+  <aside>
+    {{> yield "aside"}}
+  </aside>
+
+  <div style="padding-left: 80px;padding-right: 80px;" class="container-fluid">
+    {{> yield}}
+  </div>
+
+  <footer>
+    {{> footer}}
+  </footer>
+ 
+</template>
+<template name='footer'>
+<div class="bs-docs-footer">
+  <br><br>
+  <p align="center"><small>Sistema desarrolado por <b>SOFTER</b> softer.com.ar <br><small>Cualquier inconveniente comunicarse al <b>2975447771</b> o enviar correo a <b>alejandro@softer.com.ar</b></small> </small></p>
+ </div>
+</template>
